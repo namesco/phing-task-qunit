@@ -99,8 +99,10 @@ class QunitTask extends Task {
 		if (file_exists($this->reportPath)) {
 			unlink($this->reportPath);
 		}
-		file_put_contents($this->reportPath,'<testsuite name="qunit">' . $this->resultXml . '</testsuite>'); 
-		if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('QUnit tests failed');
+		file_put_contents($this->reportPath, '<testsuites>' . $this->resultXml . '</testsuites>');
+		if ($this->haltOnFailure && $this->hasErrors) {
+			throw new BuildException('QUnit tests failed');
+		}
 	}
 
 	public function run($file) {
